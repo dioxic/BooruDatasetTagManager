@@ -189,7 +189,7 @@ namespace BooruDatasetTagManager
             {
                 if (isShowPreview)
                 {
-                    HidePreview();
+                    ShowPreview((string)gridViewDS.SelectedRows[0].Cells["ImageFilePath"].Value);
                 }
                 gridViewTags.AllowDrop = false;
                 gridViewTags.Rows.Clear();
@@ -1110,7 +1110,10 @@ namespace BooruDatasetTagManager
                     gridViewDS.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
                     gridViewDS.Columns[i].Visible = Program.DataManager.IsLossLoaded;
                 }
-
+                if (gridViewDS.Columns[i].Name == "ImageFilePath")
+                {
+                    gridViewDS.Columns[i].Visible = false;
+                }
             }
         }
 
@@ -1518,6 +1521,10 @@ namespace BooruDatasetTagManager
             if (e.Control || e.Shift)
             {
                 isCtrlOrShiftPressed = true;
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                AddSelectedAllTagsToImageTags();
             }
         }
 
